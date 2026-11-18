@@ -15,6 +15,7 @@ Desarrollar un facturador en modalidad **Computarizada en Línea (código 2)**, 
 - ReportLab + qrcode (PDF/QR)
 - Django-Q2 (cola de envíos)
 - pytest
+- UI: React + Vite + Tailwind + shadcn/ui en `frontend/` (SPA que consume `/api/v1/`)
 
 **No usar C# ni .NET.**
 
@@ -25,7 +26,8 @@ Clean Architecture:
 - `src/domain/` — entidades, value objects, puertos (sin imports Django)
 - `src/application/` — casos de uso
 - `src/infrastructure/` — DB, SIAT (SOAP), PDF, cola
-- `src/presentation/` — API DRF y UI mínima
+- `src/presentation/` — API DRF; shell Django que sirve la SPA
+- `frontend/` — React SPA (única UI de negocio)
 
 Multi-tenant desde el día 1: toda fila de negocio lleva `empresa_id` (y sucursal/punto de venta cuando aplique). Una empresa nunca consulta datos de otra.
 
@@ -71,6 +73,7 @@ facturador-siat/
   AGENTS.md
   .cursor/rules/siat.mdc
   .env.example
+  frontend/         # React + Vite + Tailwind + shadcn/ui
   src/domain|application|infrastructure|presentation
   schemas/          # XSD oficial (aportado por quien homologa; no inventar)
   tests/

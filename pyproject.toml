@@ -17,6 +17,7 @@ dependencies = [
     "reportlab>=4.2",
     "qrcode[pil]>=8.0",
     "django-q2>=1.7",
+    "django-cors-headers>=4.6",
     "requests>=2.32",
 ]
 

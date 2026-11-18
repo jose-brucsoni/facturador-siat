@@ -34,3 +34,8 @@ tmp/
 
 # Django-Q
 .django_q/
+
+# Frontend (Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/

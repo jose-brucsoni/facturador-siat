@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
-from src.infrastructure.db.models import Cliente, Factura, Producto
+from src.infrastructure.db.models import Cliente, Factura, Producto, PuntoVenta, Sucursal
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -37,7 +37,15 @@ class ProductoSerializer(serializers.ModelSerializer):
         read_only_fields = ("id",)
 
 
+class ClienteResumenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = ("id", "razon_social", "numero_documento")
+
+
 class FacturaSerializer(serializers.ModelSerializer):
+    cliente = ClienteResumenSerializer(read_only=True)
+
     class Meta:
         model = Factura
         fields = (
@@ -60,3 +68,24 @@ class EmitirSerializer(serializers.Serializer):
     lineas = serializers.ListField(child=serializers.DictField(), min_length=1)
     sucursal_id = serializers.IntegerField()
     punto_venta_id = serializers.IntegerField()
+
+
+class PuntoVentaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PuntoVenta
+        fields = ("id", "codigo_punto_venta", "nombre", "activo")
+
+
+class SucursalSerializer(serializers.ModelSerializer):
+    puntos_venta = PuntoVentaSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Sucursal
+        fields = (
+            "id",
+            "codigo_sucursal",
+            "direccion",
+            "municipio",
+            "activa",
+            "puntos_venta",
+        )

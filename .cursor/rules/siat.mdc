@@ -7,7 +7,7 @@ alwaysApply: true
 
 # Facturador SIAT
 
-Sigue AGENTS.md. Stack solo Python/Django (no C#/.NET).
+Sigue AGENTS.md. Backend Python/Django; UI React en `frontend/` (no C#/.NET).
 
 ## Imperativos
 
@@ -19,4 +19,5 @@ Sigue AGENTS.md. Stack solo Python/Django (no C#/.NET).
 - Nunca loguear ni commitear el token SIAT.
 - Evidencias SOAP/XML/Gzip/hash inmutables por factura.
 - Cola Django-Q2 para envíos al SIN.
+- UI: SPA Vite+React+Tailwind+shadcn en `frontend/`; consume `/api/v1/` con sesión/CSRF.
 - Código en inglés; mensajes de negocio en español; type hints; pytest.

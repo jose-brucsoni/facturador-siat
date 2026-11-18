@@ -16,7 +16,7 @@ Corre en modo **stub**: simula respuestas del SIN sin llamar a Impuestos Naciona
 - Emisión Compra-Venta (CUF, XML, Gzip/SHA-256, PDF con QR)
 - Anulación con control de plazo
 - Contingencia offline y paquetes (máx. 500)
-- API REST (DRF) + UI mínima
+- API REST (DRF) + SPA React (Tailwind / shadcn/ui)
 - Cola de envíos (Django-Q2)
 - Suite de pruebas con pytest
 
@@ -26,6 +26,7 @@ Corre en modo **stub**: simula respuestas del SIN sin llamar a Impuestos Naciona
 |-------|------------|
 | Lenguaje | Python 3.12 |
 | Web / API | Django LTS + Django REST Framework |
+| UI | React + Vite + Tailwind CSS + shadcn/ui |
 | DB demo | SQLite (Postgres vía `DATABASE_URL`) |
 | SIAT | zeep (SOAP), lxml, stub inyectable |
 | PDF / QR | ReportLab + qrcode |
@@ -40,12 +41,15 @@ Clean Architecture:
 src/domain/           # reglas y puertos (sin Django)
 src/application/      # casos de uso
 src/infrastructure/   # DB, SIAT, PDF, cola
-src/presentation/     # API y web
+src/presentation/     # API DRF + shell SPA
+frontend/             # React SPA
 ```
 
 El conector SIAT vive solo en `src/infrastructure/siat/`.
 
 ## Arranque local
+
+### Backend
 
 ```bash
 uv venv --python 3.12 .venv
@@ -57,8 +61,30 @@ python manage.py seed_demo
 python manage.py runserver
 ```
 
-- Web: http://127.0.0.1:8000/login/
+### Frontend (desarrollo)
+
+En otra terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+- SPA (Vite): http://127.0.0.1:5173/
+- API: http://127.0.0.1:8000/api/v1/
 - Usuario demo: `demo` / `demo1234`
+
+Vite hace proxy de `/api` hacia Django. Sesión + CSRF por cookies.
+
+### Frontend (producción / Django sirve el build)
+
+```bash
+cd frontend && npm run build
+python manage.py runserver
+```
+
+Django sirve `frontend/dist` en `/` (excepto `/api/` y `/admin/`).
 
 ```bash
 pytest

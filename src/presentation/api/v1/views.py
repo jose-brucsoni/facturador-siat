@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from django.http import HttpResponse
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -26,6 +28,7 @@ from src.presentation.api.serializers import (
     EmitirSerializer,
     FacturaSerializer,
     ProductoSerializer,
+    SucursalSerializer,
 )
 
 
@@ -118,6 +121,16 @@ class FacturaViewSet(viewsets.ReadOnlyModelViewSet):
         return Response({"ok": True, "mensaje": result.mensaje})
 
 
+class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = SucursalSerializer
+    permission_classes = [IsAuthenticated, HasEmpresa]
+
+    def get_queryset(self):
+        return Sucursal.objects.filter(empresa_id=self.request.user.empresa_id).prefetch_related(
+            "puntos_venta"
+        )
+
+
 class EmitirView(APIView):
     permission_classes = [IsAuthenticated, HasEmpresa]
 
@@ -200,8 +213,40 @@ def config_status(request):
     )
 
 
+def _session_payload(user) -> dict:
+    empresa = getattr(user, "empresa", None)
+    return {
+        "username": user.username,
+        "empresa_id": user.empresa_id,
+        "empresa_razon_social": empresa.razon_social if empresa else None,
+    }
+
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+@ensure_csrf_cookie
+def csrf_view(request):
+    return Response({"csrfToken": get_token(request)})
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated, HasEmpresa])
+def me_view(request):
+    return Response(_session_payload(request.user))
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def logout_view(request):
+    from django.contrib.auth import logout
+
+    logout(request)
+    return Response({"ok": True})
+
+
 @api_view(["POST"])
 @permission_classes([AllowAny])
+@ensure_csrf_cookie
 def login_view(request):
     from django.contrib.auth import authenticate, login
 
@@ -211,9 +256,4 @@ def login_view(request):
     if not user:
         return Response({"detail": "Credenciales inválidas"}, status=400)
     login(request, user)
-    return Response(
-        {
-            "username": user.username,
-            "empresa_id": user.empresa_id,
-        }
-    )
+    return Response(_session_payload(user))
