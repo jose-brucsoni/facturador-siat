@@ -1,0 +1,10 @@
+{% extends "web/base.html" %}
+{% block content %}
+<h1>Ingreso demo</h1>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<form method="post">{% csrf_token %}
+  <p><label>Usuario <input name="username" required></label></p>
+  <p><label>Clave <input type="password" name="password" required></label></p>
+  <button class="btn" type="submit">Entrar</button>
+</form>
+{% endblock %}

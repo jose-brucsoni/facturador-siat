@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Esquema mínimo solo para pruebas locales. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="facturaComputarizadaCompraVenta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="cabecera">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nitEmisor" type="xs:string"/>
+              <xs:element name="razonSocialEmisor" type="xs:string"/>
+              <xs:element name="municipio" type="xs:string"/>
+              <xs:element name="telefono" type="xs:string" minOccurs="0"/>
+              <xs:element name="numeroFactura" type="xs:integer"/>
+              <xs:element name="cuf" type="xs:string"/>
+              <xs:element name="cufd" type="xs:string"/>
+              <xs:element name="codigoSucursal" type="xs:integer"/>
+              <xs:element name="direccion" type="xs:string"/>
+              <xs:element name="codigoPuntoVenta" type="xs:integer" minOccurs="0"/>
+              <xs:element name="fechaEmision" type="xs:string"/>
+              <xs:element name="nombreRazonSocial" type="xs:string"/>
+              <xs:element name="codigoTipoDocumentoIdentidad" type="xs:integer"/>
+              <xs:element name="numeroDocumento" type="xs:string"/>
+              <xs:element name="complemento" type="xs:string" minOccurs="0"/>
+              <xs:element name="codigoCliente" type="xs:string"/>
+              <xs:element name="codigoMetodoPago" type="xs:integer"/>
+              <xs:element name="montoTotal" type="xs:decimal"/>
+              <xs:element name="montoTotalSujetoIva" type="xs:decimal"/>
+              <xs:element name="codigoMoneda" type="xs:integer"/>
+              <xs:element name="tipoCambio" type="xs:decimal"/>
+              <xs:element name="montoTotalMoneda" type="xs:decimal"/>
+              <xs:element name="descuentoAdicional" type="xs:decimal" minOccurs="0"/>
+              <xs:element name="codigoExcepcion" type="xs:integer" minOccurs="0"/>
+              <xs:element name="leyenda" type="xs:string"/>
+              <xs:element name="usuario" type="xs:string"/>
+              <xs:element name="codigoDocumentoSector" type="xs:integer"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="detalle" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="actividadEconomica" type="xs:string"/>
+              <xs:element name="codigoProductoSin" type="xs:string"/>
+              <xs:element name="codigoProducto" type="xs:string"/>
+              <xs:element name="descripcion" type="xs:string"/>
+              <xs:element name="cantidad" type="xs:decimal"/>
+              <xs:element name="unidadMedida" type="xs:integer"/>
+              <xs:element name="precioUnitario" type="xs:decimal"/>
+              <xs:element name="montoDescuento" type="xs:decimal" minOccurs="0"/>
+              <xs:element name="subTotal" type="xs:decimal"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

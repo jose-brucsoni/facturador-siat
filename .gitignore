@@ -1,0 +1,36 @@
+# Secrets
+.env
+.env.local
+*.pem
+*.p12
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.sqlite3
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Evidencias reales / piloto (no commitear datos de contribuyentes)
+evidencias_piloto/
+tmp/
+*.log
+
+# Django-Q
+.django_q/

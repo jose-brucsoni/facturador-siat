@@ -1,0 +1,43 @@
+[project]
+name = "facturador-siat"
+version = "0.1.0"
+description = "Facturador SIAT multi-tenant (Bolivia) — modalidad Computarizada en Línea"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "django>=5.2,<5.3",
+    "djangorestframework>=3.15",
+    "django-environ>=0.11",
+    "psycopg[binary]>=3.2",
+    "zeep>=4.3",
+    "lxml>=5.3",
+    "signxml>=4.0",
+    "reportlab>=4.2",
+    "qrcode[pil]>=8.0",
+    "django-q2>=1.7",
+    "requests>=2.32",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-django>=4.9",
+    "pytest-cov>=6.0",
+]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["config*", "src*"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.django-stubs]
+django_settings_module = "config.settings.dev"

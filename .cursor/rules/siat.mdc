@@ -1,0 +1,22 @@
+---
+description: Reglas del facturador SIAT (Bolivia)
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Facturador SIAT
+
+Sigue AGENTS.md. Stack solo Python/Django (no C#/.NET).
+
+## Imperativos
+
+- Clean Architecture: domain sin Django; SOAP solo en `src/infrastructure/siat/`.
+- Multi-tenant: filtrar siempre por `empresa_id` del usuario autenticado (anti-IDOR).
+- MVP: modalidad 2, sector 1, tipo factura 1. No firmar XML (signxml solo interfaz).
+- Config vía entorno. Valores oficiales desconocidos → `POR_COMPLETAR` / «por verificar».
+- Nunca inventar WSDL, URLs SIAT, códigos RND ni métodos SOAP.
+- Nunca loguear ni commitear el token SIAT.
+- Evidencias SOAP/XML/Gzip/hash inmutables por factura.
+- Cola Django-Q2 para envíos al SIN.
+- Código en inglés; mensajes de negocio en español; type hints; pytest.

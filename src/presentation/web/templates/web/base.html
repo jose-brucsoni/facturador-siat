@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Facturador SIAT Demo</title>
+  <style>
+    :root { --ink:#1a2332; --bg:#eef2f6; --accent:#0b6e4f; }
+    body { font-family: "Source Sans 3", "Segoe UI", sans-serif; margin:0; background:linear-gradient(160deg,#eef2f6,#d9e4ef); color:var(--ink); }
+    header { background:var(--ink); color:#fff; padding:1rem 1.5rem; display:flex; gap:1rem; align-items:center; }
+    header a { color:#cde; text-decoration:none; }
+    main { max-width:960px; margin:1.5rem auto; padding:0 1rem; }
+    .btn { background:var(--accent); color:#fff; border:0; padding:.5rem 1rem; cursor:pointer; }
+    table { width:100%; border-collapse:collapse; background:#fff; }
+    th, td { padding:.5rem; border-bottom:1px solid #ccd; text-align:left; }
+    .error { color:#a11; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Facturador SIAT</strong>
+    {% if user.is_authenticated %}
+      <a href="{% url 'web-home' %}">Inicio</a>
+      <a href="{% url 'web-config' %}">Config</a>
+      <a href="{% url 'web-logout' %}">Salir</a>
+      <span style="margin-left:auto">{{ user.username }}</span>
+    {% endif %}
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

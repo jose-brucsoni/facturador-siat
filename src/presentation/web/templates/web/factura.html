@@ -1,0 +1,11 @@
+{% extends "web/base.html" %}
+{% block content %}
+<h1>Factura {{ factura.numero_factura }}</h1>
+<ul>
+  <li>Estado: {{ factura.estado_interno }} / SIAT {{ factura.estado_siat }}</li>
+  <li>CUF: {{ factura.cuf }}</li>
+  <li>Monto: {{ factura.monto_total }}</li>
+  <li>Errores: {{ factura.errores_siat }}</li>
+</ul>
+<p><a class="btn" href="{% url 'web-factura-pdf' factura.id %}">Descargar PDF</a></p>
+{% endblock %}
