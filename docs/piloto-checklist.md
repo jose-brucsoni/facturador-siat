@@ -1,6 +1,6 @@
 # Checklist operativo — Piloto SIAT
 
-Este documento **no aprueba** el sistema ante el SIN. Es una guía para que Jose ejecute pruebas cuando ya tenga autorización.
+Este documento **no aprueba** el sistema ante el SIN. Es una guía operativa para pruebas cuando ya exista autorización.
 
 Enlaces oficiales (siatinfo):
 

@@ -1,6 +1,6 @@
 # Facturador SIAT — Reglas del agente
 
-SaaS modular multi-tenant para PyMEs (Bolivia). Módulo base: Sistema Informático de Facturación homologable por el SIAT (Servicio de Impuestos Nacionales).
+Demo multi-tenant de facturación para PyMEs (Bolivia). Módulo base: Sistema Informático de Facturación orientado al SIAT (Servicio de Impuestos Nacionales).
 
 ## Objetivo
 
@@ -10,7 +10,7 @@ Desarrollar un facturador en modalidad **Computarizada en Línea (código 2)**, 
 
 - Python **3.12** (pinneado en `pyproject.toml`)
 - Django LTS + Django REST Framework
-- PostgreSQL por defecto; SQL Server solo si `DATABASE_URL` lo indica
+- SQLite en demo local; PostgreSQL vía `DATABASE_URL`; SQL Server solo si la URL lo indica
 - zeep (SOAP), lxml (XML/XSD), signxml (interfaz lista; no firmar en MVP)
 - ReportLab + qrcode (PDF/QR)
 - Django-Q2 (cola de envíos)
@@ -72,6 +72,6 @@ facturador-siat/
   .cursor/rules/siat.mdc
   .env.example
   src/domain|application|infrastructure|presentation
-  schemas/          # XSD oficial (Jose lo descarga; no inventar)
+  schemas/          # XSD oficial (aportado por quien homologa; no inventar)
   tests/
 ```
